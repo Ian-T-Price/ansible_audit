@@ -1,0 +1,24 @@
+---
+#
+#
+#
+
+
+- name         : Check if user exists on systems
+  hosts        : "{{ hosts }}" 
+  gather_facts : yes
+
+#  vars:
+#    user       : "{{ USER|default('ian.price') }}"
+#    hosts      : "{{ HOSTS|default( all ) }}"
+
+  tasks :
+
+  - name     : Report on OS Version
+    debug    : msg="Dist = {{ ansible_distribution }} Release = {{ ansible_distribution_release }} Version = {{ ansible_distribution_version }}"
+#    register : OS_VER
+
+
+#  - debug    : var=OS_VER.stdout
+#  - debug    : msg={{ root_OS_VER.stdout }}
+

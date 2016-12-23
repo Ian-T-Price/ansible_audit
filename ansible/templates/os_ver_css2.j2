@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RHEL OS Versions</title>
+    <link rel="stylesheet" type="text/css" href="os_ver.css">
+</head>
+
+  <body>
+
+    <h1>OS_VERSION (ANSIBLE GATHERED) :</h1>
+
+<div class="colmask">
+        <div class="header">
+	        head
+        </div>
+        <div class="colmid">
+        <div class="colin">
+        <div class="colwu">
+            <div class="colleft">
+                <div class="col1">
+                      column 1
+                </div>
+                <div class="col2">
+                      column 2
+                </div>
+                <div class="col3">
+                      column 3
+                </div>
+                <div class="col4">
+                      column 4
+                </div>
+                <div class="col5">
+                      column 5
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        <div class="footer">
+	    footer
+    </div>
+    </div>
+
+
+    <div class="CSSTable1" >
+                <table >
+                    <tr>
+                        <td>
+                            IP Adrress
+                        </td>
+                        <td>
+                            Host Name
+                        </td>
+                        <td>
+                          Distribution	
+                        </td>
+                        <td>
+                            Release
+                        </td>
+                        <td>
+                            Version
+                        </td>
+                    </tr>
+                    {% for item in groups['webservers'] %}
+                      {% if hostvars[item].ansible_default_ipv4.address is defined -%}
+                      <tr>
+                          <td >
+                              {{ hostvars[item].ansible_default_ipv4.address }}
+                          </td>
+                          <td>
+                              {{ hostvars[item].ansible_hostname }}    
+                          </td>
+                          <td>
+                              {{ hostvars[item].ansible_distribution }}               
+                          </td>
+                          <td>
+                              {{ hostvars[item].ansible_distribution_release }}             
+                          </td>
+                          <td>
+                              {{ hostvars[item].ansible_distribution_version }}         
+                          </td>
+                      </tr>
+                      {% endif -%}
+                    {% endfor %}
+                </table>
+            </div>
+
+        {# {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }} #}
+        {# {{ ansible_hostname }} {{ ansible_distribution }} {{ ansible_distribution_release }} {{ ansible_distribution_version }} {{ ansible_eth0['ipv4']['address'] }} {{ ansible_default_ipv4['address'] }} #} 
+
+    {% for item in groups['webservers'] %}
+      {#	{{ hostvars[item]['ansible_facts']['ansible_all_ipv4_addresses'] }} #}
+    {% endfor %}
+
+    {% for group in group_names %}
+	{{ group }}
+    {% endfor %}
+
+    <h3># Auto-generated /etc/hosts </h3>
+    {% for k,v in hostvars.iteritems() %}
+      {# {{v['ansible_eth0']['ipv4']['address']}} {{ k }} #}
+      {# {{ v.ansible_default_ipv4.address }} {{ k }} #}
+    {% endfor %}
+
+    <h3># CSV of server names </h3>
+
+    <p>WebServers =  </p>{{ groups["webservers"] | join(",") }}
+
+    <p>DBServers =  </p> {{ groups["dbservers"] | join(",") }}
+
+    {# AllServers = {{ groups[ {{ group }} ] | join(",") }} #}
+
+  </body>
+  
+</html>

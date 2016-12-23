@@ -1,0 +1,21 @@
+---
+#
+# Run: ansible-playbook -sv privileged.yml -e "hosts=<group>"
+#
+# Lists all priviledged access on a host using a template file
+# Outputting to a webpage and file
+#
+
+# First we gather facts on the hosts we want
+
+- name: Gather facts from the selected hosts
+  hosts: "{{ hosts }}"
+
+# Now we run the report creation part
+
+- name: Collect the facts, configure and deploy the webpage.
+  hosts: localhost
+# Really need a gather_facts: False here but it doesn't work...
+  gather_facts: True
+  roles:
+    - { role: privileged, privileged_hosts: "{{ hosts }}" }

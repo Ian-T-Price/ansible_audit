@@ -1,0 +1,13 @@
+- hosts: "{{ hosts }}"
+#- hosts: localhost     #"{{ hosts }}"
+  gather_facts: yes
+#  connection: local
+
+  tasks:
+
+#     Call ansible module "userinfo" with parameter "user={{ user }}"
+    - sudodir2: 
+#    - sudodir:
+#      ignore_errors: True   
+
+      register: sudodir2

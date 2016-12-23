@@ -1,0 +1,14 @@
+---
+
+- hosts: localhost #"{{ hosts }}"
+  user: itp
+  gather_facts: no
+  connection: local
+   
+  tasks:
+    - name: "Show free space on mounts"
+      action: my-df user="itp"
+      register: dfresults
+    
+    - debug: var=dfresults
+          

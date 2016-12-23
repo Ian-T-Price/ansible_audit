@@ -1,0 +1,17 @@
+---
+# Upload the appropriate .css file for webpage
+#
+
+
+- name: Creates directory and sets attributes
+  file: path='/var/www/html/privileged' state=directory owner=apache group=apache mode=0775
+  
+- name: Upload css file
+  copy:
+    src: '../files/grid.css'
+    dest: '/var/www/html/privileged/grid.css'
+    owner: 'apache'
+    group: 'apache'
+    mode: 0755
+#   sudo: yes    # Unsupported parameter apparently...
+                        

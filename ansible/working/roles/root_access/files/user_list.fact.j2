@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Get a list of all users with login priviledges in /etc/passwd
+
+USER_LIST=`egrep -iv "nologin" /etc/passwd | sort`
+cat <<EOF
+{
+    "user_list" : "$USER_LIST"
+}
+
+EOF

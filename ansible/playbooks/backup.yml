@@ -1,0 +1,5 @@
+---
+
+- name: backup /etc/default
+  backup: path=/etc/default backup_dir=/var/backups
+  # results in the file /var/backups/etc/default.tar.gz.bckp.20150120082832

@@ -1,0 +1,17 @@
+---
+# Upload the appropriate .css file for webpage
+#
+
+
+- name: Creates directory and sets attributes
+  file: path='/var/www/html/os_apps_vers' state=directory owner=apache group=apache mode=0775
+  
+- name: Upload css file
+  copy:
+    src: '../files/os_apps_vers.css'
+    dest: '/var/www/html/os_apps_vers/os_apps_vers.css'
+    owner: 'apache'
+    group: 'apache'
+    mode: 0755
+#   sudo: yes    # Unsupported parameter apparently...
+                        

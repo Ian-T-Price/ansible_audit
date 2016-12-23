@@ -1,0 +1,30 @@
+
+PLAY [Check who has root access] ********************************************** 
+
+TASK: [Run getent on /etc/passwd to check for UID = 0] ************************ 
+changed: [dfw1]
+
+TASK: [Run getent group for root, wheel, adm, admin] ************************** 
+changed: [dfw1]
+
+TASK: [List all action lines in /etc/sudoers] ********************************* 
+changed: [dfw1]
+
+TASK: [debug msg={{ root_UID.stdout }}] *************************************** 
+ok: [dfw1] => {
+    "msg": "root:x:0:0:root:/root:/bin/bash"
+}
+
+TASK: [debug msg={{ root_Group.stdout }}] ************************************* 
+ok: [dfw1] => {
+    "msg": "root:x:0:"
+}
+
+TASK: [debug msg={{ root_Sudoers.stdout }}] *********************************** 
+ok: [dfw1] => {
+    "msg": "root\tALL=(ALL)"
+}
+
+PLAY RECAP ******************************************************************** 
+dfw1                       : ok=6    changed=3    unreachable=0    failed=0   
+

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# we are getting username value from ansible playbook parameter
+
+source ${1}
+
+#echo ${1}
+
+user="${1}"
+
+#echo $user 
+
+if  egrep $user /etc/passwd >/dev/null 2>&1; then
+	UserExists="True"
+#	echo yea
+else
+	UserExists="False"
+#	echo nuts
+fi
+
+echo "changed=True msg=OK UserExists='$UserExists'"
+
+# You can write module Failed condition similarly
+# echo "changed=False"
+

@@ -1,0 +1,16 @@
+---
+#
+# 
+#
+
+- name         : Set default firewall rules
+  hosts        : lteuatdb 	# "{{ hosts }}" 
+  gather_facts : yes
+
+
+  tasks:
+
+# Check RHEL subcription
+  - name       : Check RHEL subcription ID
+    command    : "subscription-manager identity"
+

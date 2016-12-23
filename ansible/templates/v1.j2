@@ -1,0 +1,10 @@
+-> I am {{ myname.stdout }}
+
+{#% set t = v.stdout|from_json %#}
+{% set t = myname.stdout|from_json %}
+
+JSON struct T: {{ t }}
+
+name = {{ t.name }} 
+number = {{ t['number'] }}
+

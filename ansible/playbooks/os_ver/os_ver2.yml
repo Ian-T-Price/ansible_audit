@@ -1,0 +1,32 @@
+---
+#
+# Run: ansible-playbook -sv playbooks/os_ver2.yml --extra-vars hosts=<hostnames/group>
+#
+# Lists all the variables on a host using a template file dump_vars.j2
+#
+
+# First we gather facts on the hosts we want
+- hosts: "{{ hosts }}"
+  gather_facts: True
+
+# Now we rund the report creation part
+
+# This template section creates the file (dest:) on the hosts server
+
+- hosts: localhost
+#- hosts: 127.0.0.1
+  gather_facts: False
+
+  tasks:
+  - template:
+      src: 	../templates/os_ver_css2.j2
+      dest: 	/var/www/html/os_ver/os_ver2.htm
+    ignore_errors: True
+
+# This fetch section grabs the file created in the template section and writes it locally 
+
+#  - fetch:
+#      src: 	/tmp/os_ver
+#      dest: 	"../facts"
+#    ignore_errors: True
+

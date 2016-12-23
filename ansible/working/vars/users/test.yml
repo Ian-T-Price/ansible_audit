@@ -1,0 +1,25 @@
+---
+
+# Each user is an assoc array consisting of
+#       name
+#       ssh_keys (a list)
+#       revoked_ssh_key_files (a list)
+#       and a lot of optional stuff
+# see also:
+#       http://docs.ansible.com/user_module.html
+#       http://docs.ansible.com/authorized_key_module.html
+
+user_alice:
+  name: alice
+  uid: 1000
+  groups: [ wheel ]
+  append: yes
+  password: '$6_pa$$word'
+  shell: /bin/bash
+  update_password: on_create
+  ssh_keys:
+    - file: vars/users/test.pub
+      state: present
+
+
+

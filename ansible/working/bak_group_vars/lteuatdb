@@ -1,0 +1,59 @@
+---
+# NSI users
+# animesh.kumar.keys  bhupinder.singh.keys  lalit.singla.keys  mayank.kukreja.keys
+
+users:
+
+  - username: "selwyn.marock"
+    name: "Selwyn Marock"
+    groups: ['wheel']
+    uid: 670518
+    ssh_key:
+      - "{{ lookup('file', 'selwyn.marock.keys') }}"
+
+  - username: "leonardo.castano"
+    name: "Leonardo Castano Diaz"
+    groups: ['wheel']
+    uid: 710710
+    ssh_key:
+      - "{{ lookup('file', 'leonardo.castano.keys') }}"
+
+  - username: "animesh.kumar"
+    name: "Animesh Kumar"
+    groups: ['wheel']
+    uid: 11007
+    ssh_key:
+      - "{{ lookup('file', 'animesh.kumar.keys') }}"
+
+  - username: "bhupinder.singh"
+    name: "Bhupinder Singh"
+    groups: ['wheel']
+    uid: 11005
+    ssh_key:
+      - "{{ lookup('file', 'bhupinder.singh.keys') }}"
+
+  - username: "lalit.singla"
+    name: "Lalit Singla"
+    groups: ['wheel']
+    uid: 11004
+    ssh_key:
+      - "{{ lookup('file', 'lalit.singla.keys') }}"
+
+  - username: "mayank.kukreja"
+    name: "Mayank Kukreja"
+    groups: ['wheel']
+    uid: 11006
+    ssh_key:
+      - "{{ lookup('file', 'mayank.kukreja.keys') }}"
+
+#  - username: "ian.price"
+#    name: "Ian T Price"
+#    groups: ['wheel', 'netsol']
+#    uid: 07012239
+#    ssh_key:
+#      - "{{ lookup('url', 'https://github.com/ian.price.keys') }}"
+
+users_deleted:
+  - username: "bar"
+    name: "Bar User"
+    uid: 787878

@@ -1,0 +1,287 @@
+# This is the default ansible 'hosts' inventory file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+#################
+### ECP Files ###
+#################
+
+[1andonly]
+#dlw1b
+localhost
+#l702x
+
+# All Database servers
+######################
+[dbservers]
+dad[1:1]
+#dbd[1:2]	# Shut down DR servers
+#dcd[1:1]	# Shut down DR servers
+#ded[1:1]	# Shut down DR-StackE servers # Should be ded[1:2] but ded2 didn't get built...?
+dfd[1:2]
+pad[1:1]
+pbd[1:2]
+pcd[1:1]
+#ped[1:2]	# Shut down DR-StackE servers 
+pfd[1:2]
+sad[1:1]
+sbd[1:2]
+sed[1:2]
+uad[1:1]
+dud[1:1]
+
+# All Web servers
+#################
+[webservers]
+daw[1:1]
+#dbw[1:2]	# Shut down DR servers
+#dcw[1:1]	# Shut down DR servers
+#des[1:1]	# Shut down DR-StackE servers 
+#dew[1:3]	# Shut down DR-StackE servers 
+dfs[1:1]
+dfw[1:2]
+paw[1:1]
+pbw[1:2]
+pcw[1:1]
+#pew[1:3]	# Shut down DR-StackE servers 
+pfw[1:2]
+saw[1:1]
+#sbw[1:2]	# swb1 exists but the IP is knacked
+sbw2
+ses[1:1]
+sew[1:3]
+uaw[1:1]
+duw[1:1]
+
+# LTE-UAT servers
+#################
+[lteuatall:children]
+lteuatdb
+lteuatweb
+
+# LTE-UAT DB servers
+####################
+[lteuatdb]
+dld[1:3]b
+dld5[1:3]b
+
+# LTE-UAT Web servers
+#####################
+[lteuatweb]
+dls[1:1]b
+dlw[1:3]b
+dlw5[1:3]b
+
+# Prod GREEN LIVE servers
+############################
+[prodgreenall:children]
+proda
+prodb
+prodc
+prodf
+physe
+slb_
+
+# Prod-LTE BLUE LIVE servers
+############################
+[lteprodall:children]
+lteproddb
+lteprodweb
+lteprodlb
+
+# Prod-LTE DB BLUE LIVE servers
+###############################
+[lteproddb]
+lteprodmaria
+lteprodredis
+
+[lteprodmaria]
+pld[1:4]b
+[lteprodredis]
+pld5[1:3]b
+
+# Prod-LTE WEB BLUE LIVE servers
+################################
+#pls[1:1]b	# SOP merged into standard servers
+[lteprodapache]
+plw[1:4]b
+[lteprodnginx]
+plw5[1:3]b
+
+[lteprodweb:children]
+lteprodapache
+lteprodnginx
+
+# Prod-LTE WEB Load Balancers
+#############################
+[lteprodlb]
+plbw[1:2]b
+plbd[1:2]b
+
+
+# All servers
+#############
+[allservers:children]
+dbservers
+webservers
+lteuatall
+uata
+gen
+slb_
+#slbe_
+drlb
+#drlbe
+
+######################
+## Mangement & Misc ##
+######################
+[gen]
+#e1u1		# Ubuntu server that's not fully setup 
+#localhost	# Redundant since Ansible 1.4ish
+pcm[1:1]g	# ConfMan - GREEN
+pcm[1:1]b	# ConfMan - BLUE
+elk[1:1]g	# ELK logging server - GREEN - Reading
+elk[1:1]b	# ELK logging server - BLUE - Croydon
+
+#######################################
+## User Acceptance Testing - Stack A ##
+#######################################
+[uata]
+uat[1:1]
+uad[1:1]
+uaw[1:1]
+
+[uatd]
+uad[1:1]
+
+[uatw]
+uaw[1:1]
+
+
+# Production Stack A
+####################
+[proda]
+pad[1:1]
+paw[1:1]
+
+# Production Stack B
+####################
+[prodb]
+pbd[1:2]
+pbw[1:2]
+
+# Production Stack C
+####################
+[prodc]
+pcd[1:1]
+pcw[1:1]
+
+# Production Stack E
+####################
+[prode]		# Shut down Prod-StackE server
+#ped[1:2]
+#pes[1:1]
+#pew[1:3]
+
+# Production Stack F
+####################
+[prodf]
+pfd[1:2]
+pfs[1:1]
+pfw[1:2]
+
+# Physical Load Balancers
+#########################
+[slb_]
+slb[1:2]
+# External
+[slbe_]
+# slbe[1:2]	# Access not working
+
+# Physical Stack A
+##################
+[physa]
+sad[1:1]
+saw[1:1]
+
+# Physical Stack B
+##################
+[physb]
+sbd[1:2]
+sbw[2:2]	# swb1 IP address is not working
+
+# Physical Stack E
+##################
+[physe]
+sed[1:2]
+ses[1:1]
+sew[1:3]
+
+###################
+# Disaster Recovery
+###################
+
+##################################
+## User Acceptance Testing - DR ##
+##################################
+[duat1]
+dud[1:1]
+duw[1:1]
+
+[duatd1]
+dud[1:1]
+
+[duatw1]
+duw[1:1]
+
+# DR Stack A
+############
+[dreca]		# Shut down DR servers
+#dad[1:1]
+#daw[1:1]
+
+# DR Stack B
+############
+[drecb]		# Shut down DR servers
+#dbd[1:2]
+#dbw[1:2]
+
+# DR Stack C
+############
+[drecc]		# Shut down DR servers
+#dcd[1:1]
+#dcw[1:1]
+
+# DR Stack F
+############
+[drecf]
+dfd[1:2]
+dfs[1:1]
+dfw[1:2]
+
+# DR Load Balancers
+###################
+[drlb]
+dlbw[1:1]
+dlbd[1:1]b
+
+#External
+########
+[dlbe]
+##dlbe[1:2]	# Access not working
+[afd]
+pbd1
+pbd2
+pad1
+uad1
+
+[lteafd]
+plafd
+
+

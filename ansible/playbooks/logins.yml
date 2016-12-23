@@ -1,0 +1,20 @@
+---
+#
+# Run: ansible-playbook -sv playbooks/logins.yml --extra-vars hosts=<hostnames/group>
+#
+# Lists some variables on a host using a template file os_ver3.j2
+#
+
+# First we gather facts on the hosts we want
+
+- hosts: "{{ hosts }}"
+#  connection: local
+#  gather_facts: false
+
+  tasks:
+    - name:    Run ausearch cmd for todays logins
+      command: "ausearch -ts today -m USER_AUTH"
+#      command: "last -adiFw -t 20150729000000|column -t "
+      command: "last -adiFw"
+
+

@@ -1,0 +1,16 @@
+---
+#
+# Run: ansible-playbook -sv os_apps_vers.yml -e "hosts=<hostnames/group>"
+#
+# A role version of playbooks/os_ver.yml
+#
+# Lists all the variables on a host using a template file dump_vars.j2
+#
+
+- include:
+    upload_css.yml
+
+- include:
+    webpage.yml
+
+

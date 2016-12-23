@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Get a list of groups with priviledges in /etc/sudoers
+
+ROOT_SUDOERS=`egrep -v "#|^$|Default" /etc/sudoers`
+cat <<EOF
+{
+    "root_Sudoers" : "$ROOT_SUDOERS"
+}
+
+EOF

@@ -1,0 +1,7 @@
+---
+# If a user has a UID of 0 they have root priviledges
+#
+  - name         : Run getent on /etc/passwd to check for UID = 0
+    command        : "getent passwd 0"
+    ignore_errors: True
+    register     : root_UID

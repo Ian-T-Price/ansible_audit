@@ -1,0 +1,133 @@
+<style type='text/css'>
+.header{
+   width: 90%;
+   left: 5%
+}
+.colmask{
+   width: 90%;
+   left: 5%
+}
+.colmid{ right: 20% }
+.colin{ right: 20% }
+.colwu{ right: 20% }
+.colleft{ right: 20% }
+.col1{
+   width: 18%;
+   left: 101%
+}
+.col2{
+   width: 19%;
+   left: 62%
+}
+.col3{
+   width: 18%;
+   left: 84%
+}
+.col4{
+   width: 18%;
+   left: 86%
+}
+.col5{
+   width: 19%;
+   left: 88%
+}
+.footer{
+   width: 90%;
+   left: 5%
+}
+.header{
+   clear: both;
+   float: left;
+   position: relative;
+   border-bottom: #000 1px solid;
+   background-color: #6b9cc9
+}
+.colmask{
+   clear: both;
+   float: left;
+   overflow: hidden;
+   position: relative;
+   background-color: #ffffff
+}
+.colmid{
+   float: left;
+   width: 100%;
+   position: relative;
+   background-color: #ffffff
+}
+.colin{
+   float: left;
+   width: 100%;
+   position: relative;
+   background-color: #ffffff
+}
+.colwu{
+   float: left;
+   width: 100%;
+   position: relative;
+   background-color: #ffffff
+}
+.colleft{
+   float: left;
+   width: 100%;
+   position: relative;
+   background-color: #ffffff
+}
+.col1{
+   padding: 0px 0px 1em 0px;
+   overflow: hidden;
+   float: left;
+   position: relative;
+   background-color: #d9dde9
+}
+.col2{
+   padding: 0px 0px 1em 0px;
+   overflow: hidden;
+   float: left;
+   position: relative;
+   background-color: #d9dde9
+}
+.col3{
+   padding: 0px 0px 1em 0px;
+   overflow: hidden;
+   float: left;
+   position: relative;
+   background-color: #d9dde9
+}
+.col4{
+   padding: 0px 0px 1em 0px;
+   overflow: hidden;
+   float: left;
+   position: relative;
+   background-color: #d9dde9
+}
+.col5{
+   padding: 0px 0px 1em 0px;
+   overflow: hidden;
+   float: left;
+   position: relative;
+   background-color: #d9dde9
+}
+.footer{
+   clear: both;
+   float: left;
+   position: relative;
+   border-bottom: #000 1px solid;
+   background-color: #b4d2f7
+}
+.bottom{
+   clear: both;
+   width: 100%;
+   float: left;
+   position: relative;
+   background-color: #cdeb8b
+}
+body {
+   border-width: 0px;
+   padding: 0px;
+   margin: 0px;
+   font-size: 90%;
+   width: 100%;
+   min-width: 600px;
+}
+</style>

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+APACHE_VER=`httpd -v | egrep -i vers | awk -F: '{  print $2 }' | tr -d '[[:space:]]'`
+cat <<EOF
+{    
+    "apache_ver" : "$APACHE_VER"
+}  
+
+EOF

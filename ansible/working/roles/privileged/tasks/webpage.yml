@@ -1,0 +1,19 @@
+---
+#
+# Run: ansible-playbook -sv privileged.yml -e "hosts=<hostnames/group>"
+#
+# Lists priviledged access on a host using a template privileged_htm.j2
+#
+
+# This template section creates the file (dest:) on the ansible server
+
+- template:
+    src: 	privileged_htm.j2
+    dest: 	/var/www/html/privileged/index.html
+    owner: 'apache'
+    group: 'apache'
+    mode: 0755
+                
+#    ignore_errors: True
+
+

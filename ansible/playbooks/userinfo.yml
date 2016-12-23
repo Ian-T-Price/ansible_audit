@@ -1,0 +1,23 @@
+- hosts: localhost #"{{ hosts }}"
+  user: itp
+  gather_facts: no
+  connection: local
+   
+  tasks:
+    #Call ansible module "userinfo" with parameter "user={{ user }}"
+    - name: 'Ansible module in shell'
+      action: userinfo user="{{ user }}"
+      register: userInfoVariable
+    
+    - name: 'Abort execution if user does not exist'
+      fail: msg="User does not exist"
+      when: userInfoVariable.UserExists == False 
+
+    - name: 'Execute task if user exist'
+      #action: someaction
+      shell: echo 'User exist - Replace shell with your action here.'
+      register: userExist
+      when: userInfoVariable.UserExists == True
+      
+    - debug: var=userExist 
+

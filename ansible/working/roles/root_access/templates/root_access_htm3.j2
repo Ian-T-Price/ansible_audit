@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Root Access</title>
+    <link rel="stylesheet" type="text/css" href="grid.css">
+</head>
+
+  <body>
+
+    <h1>Compliation of checks on Root Access (ANSIBLE GATHERED) :</h1>
+    <h2>The host list is: "{{ oav_hosts }}" </h2>
+    <h3>Date: {{ ansible_date_time.date }} Time: {{ ansible_date_time.time }} </h3>
+
+
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <h2> The vars are: "{#{ hostvars.ansible_local }#}" </h2>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>    
+    <p> Group_names:{{ group_names | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>    
+    <p> Group: {{ groups | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>    
+    <p> Vars: {{ vars | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>    
+    <p> Env: {{ environment | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>    
+    <p> HostVars: {{ hostvars | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p>WebServers =  </p>{{ groups["webservers"] | join(",") }}
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p>DBServers =  </p> {{ groups["dbservers"] | join(",") }}
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p>AllServers =  </p> {{ groups["allservers"] | join(",") }}
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+<!--
+
+    -->
+    <div class="CSSTable1" >
+                <table >
+                    <tr>
+                        <td>
+                            IP Adrress
+                        </td>
+                        <td>
+                            Host Name
+                        </td>
+                        <td>
+                          Root UID = 0	
+                        </td>
+                        <td>
+                            /etc/sudoers file
+                        </td>
+                        <td>
+                            /etc/sudoers.d/ directory
+                        </td>
+                        <td>
+                            Users List
+                        </td>                        
+                    </tr>
+                      {% for item in groups['1andonly'] %}
+                      {%- if hostvars[item].ansible_local is defined %}
+                      <tr>
+                          <td >
+                              {{ hostvars[item].ansible_default_ipv4.address }}
+                          </td>
+                          <td>
+                              {{ hostvars[item].ansible_hostname }}
+                          </td>
+                          <td>
+                              {{ hostvars[item].ansible_local.root_uid.root_UID }}
+                          </td>
+                          <td>
+                              {%- if hostvars[item].ansible_local.root_sudoers.root_Sudoers is defined %} {{ hostvars[item].ansible_local.root_sudoers.root_Sudoers }} {% endif -%}
+                          </td>
+                          <td>
+                              {%- if hostvars[item].ansible_local.root_sudodir.root_SudoDir is defined %} {{ hostvars[item].ansible_local.root_sudodir.root_SudoDir }} {% endif -%} 
+                          </td>
+                          <td>
+<p>{{ hostvars[item].ansible_local.user_list.employee[0] }}</p>
+<p>{{ hostvars.dlw1b.ansible_local.user_list.employee[1] }}</p>
+<p>{{ hostvars.dlw1b.ansible_local.user_list.employee[2] }}</p>
+<p>{{ hostvars.dlw1b.ansible_local.user_list.employee[0].firstName }}</p>
+
+<p>{{ hostvars.dlw1b.ansible_local.user_list.employee | pprint }}</p> 
+<p>{{ employee | pprint }}</p> 
+
+                    {#% for usr in hostvars.dlw1b.ansible_local.user_list['employee'] %#}				
+	  	    {#{ hostvars[item].ansible_local.user_list[usr].firstName }#}
+                    {#% endfor %#}				
+                          </td>				
+                      </tr>
+                      {% endif -%}
+                    {% endfor %}
+                </table>
+<dl>
+  {% for key, value in hostvars.dlw1b.ansible_local.user_list.employee %}
+
+<li>{{ key }} - {{ value["firstName"] }}</li>
+  <dt>{#{ key|e }#}</dt>
+  <dd>{#{ value|e }#}</dd>
+  {% endfor %}
+</dl>
+            </div>
+  </body>
+</html>

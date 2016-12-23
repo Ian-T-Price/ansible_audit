@@ -1,0 +1,69 @@
+- name         : Check who has root access
+  hosts        : '{{ hosts }}' 
+  gather_facts : yes
+
+  tasks :
+
+#  - name     : Run getent on /etc/passwd to check for UID = 0
+#    command  : "getent passwd 0"
+#    register : root_UID
+
+#  - name     : Run getent group for root, wheel, adm, admin
+#    command  : "getent group root wheel adm"
+#    register : root_Group
+
+#  - name     : List all action lines in /etc/sudoers
+#    command  : "egrep -v '#|Default|^$' /etc/sudoers"
+#    register : root_Sudoers
+
+#  - name     : List all action lines in /etc/sudoers.d
+#    shell    : "egrep . /etc/sudoers.d/*"
+#    register : root_SudoersD
+
+#  - debug    : var=root_UID.stdout
+#  - debug    : var=root_Group.stdout
+#  - debug    : var=root_Sudoers.stdout
+#  - debug    : var=root_SudoersD.stdout
+#  - debug    : msg={{ root_UID.stdout }}
+#  - debug    : msg={{ root_Group.stdout }}
+#  - debug    : msg={{ root_Sudoers.stdout }}
+
+#  - debug    : msg="pprint for root_SudoersD {{ root_SudoersD.stdout|pprint }}"
+#  - debug    : msg="pprint for root_SudoersD {{ root_SudoersD|pprint }}"
+
+######################
+## all above this line is working
+#################################
+
+# Example setting host facts using key=value pairs
+#  - set_fact: one_fact_1="something1" 
+# other_fact_1="{{ local_var }}"
+
+# Example setting host facts using complex arguments
+#  - set_fact:
+#       one_fact_2: something
+#       other_fact_2: "{{ 2 * 2 }}"
+#       another_fact: "{{ some_registered_var.results | map(attribute='ansible_facts.some_fact') | list }}"
+#       another_fact: "{{ root_Sudoers.results | map(attribute='ansible_local.root_sudoers') | list }}"
+
+# As of 1.8, Ansible will convert boolean strings ('true', 'false', 'yes', 'no')
+# to proper boolean values when using the key=value syntax, however it is still
+# recommended that booleans be set using the complex argument style:
+#  - set_fact:
+#      one_fact_true: true
+#      other_fact_false: false
+
+
+
+#  tasks:
+  - template:
+      src:      ../templates/root_access.j2
+      dest:     /tmp/ansible_variables
+
+# This fetch section grabs the file created in the template section and writes it locally
+
+  - fetch:
+      src:      /tmp/ansible_variables
+#      dest:     "../facts/{{inventory_hostname}}_vars"
+      dest:     "../facts/"
+

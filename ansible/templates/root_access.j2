@@ -1,0 +1,25 @@
+HOSTVARS (ANSIBLE GATHERED, Root user access) :
+
+{{ hostvars[inventory_hostname] | to_yaml }}
+
+Printout data structures:
+
+{#Sudoers ({{ root_Sudoers.cmd }}):{{ root_Sudoers.stdout_lines }#}
+{#SudoersD ({{ root_SudoersD.cmd }}):{{ root_SudoersD.stdout_lines }#}
+
+{#PLAYBOOK VARS:#}
+
+{#{ root_group.results }#}
+
+{#Group VARS:#}
+
+{#{ group_vars | to_yaml }#}
+
+{#{ inventory_hostname }} has uuid {{ ansible_product_uuid }#}
+
+{#{ ansible_local.root_sudoers }#}
+{#{ one_fact_1.stdout }#}
+{#{ other_fact_1.stdout }#}
+{#{ one_fact_2.stdout }#}
+{#{ other_fact_2.stdout }#}
+{#{ hostvars[inventory_hostname][one_fact_1] }#}

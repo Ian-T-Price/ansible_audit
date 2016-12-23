@@ -1,0 +1,34 @@
+OS_VERSION (ANSIBLE GATHERED) :
+
+Distribution	 Release	 Version	IP Adrress
+
+{% for item in groups['webservers'] %}
+  {% if hostvars[item].ansible_default_ipv4.address is defined -%}
+    {{ hostvars[item].ansible_default_ipv4.address }} {{ hostvars[item].ansible_hostname }} {{ hostvars[item].ansible_distribution }} {{ hostvars[item].ansible_distribution_release }} {{ hostvars[item].ansible_distribution_version }}
+    {# {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }} #}
+    {# {{ ansible_hostname }} {{ ansible_distribution }} {{ ansible_distribution_release }} {{ ansible_distribution_version }} {{ ansible_eth0['ipv4']['address'] }} {{ ansible_default_ipv4['address'] }} #} 
+  {% endif -%}
+{% endfor %}
+
+{% for item in groups['webservers'] %}
+{#	{{ hostvars[item]['ansible_facts']['ansible_all_ipv4_addresses'] }} #}
+{% endfor %}
+
+{% for group in group_names %}
+	{{ group }}
+{% endfor %}
+
+# Auto-generated /etc/hosts
+{% for k,v in hostvars.iteritems() %}
+{# {{v['ansible_eth0']['ipv4']['address']}} {{ k }} #}
+{# {{ v.ansible_default_ipv4.address }} {{ k }} #}
+{% endfor %}
+
+# CSV of server names
+
+WebServers = {{ groups["webservers"] | join(",") }}
+
+DBServers = {{ groups["dbservers"] | join(",") }}
+
+{# AllServers = {{ groups[ {{ group }} ] | join(",") }} #}
+

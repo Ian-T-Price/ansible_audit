@@ -1,0 +1,14 @@
+---
+#
+# Run: ansible-playbook -sv priviledged.yml -e "hosts=<group>"
+#
+# This only runs with groups and not individual hosts
+#
+
+- include:
+    upload_css.yml
+
+- include:
+    webpage.yml
+
+

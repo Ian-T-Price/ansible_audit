@@ -1,0 +1,70 @@
+# awk script to produce JSON output of the /etc/passwd file for ansible facts file
+#
+# itp:x:1000:1000:Ian T Price:/home/itp:/bin/bash
+# lighttpd:x:995:991:lighttpd web server:/var/www/lighttpd:/sbin/nologin
+
+## JSON Example, correctly formatted:
+##
+## {
+##    "employees": {
+##        "employee": [
+##            {
+##                "id": "1",
+##                "firstName": "Tom",
+##                "lastName": "Cruise",
+##                "photo": "http://tom"
+##            },
+##            {
+##                "id": "2",
+##                "firstName": "Maria",
+##                "lastName": "Sharapova",
+##                "photo": "http://thew"
+##            },
+##            {
+##                "id": "3",
+##                "firstName": "James",
+##                "lastName": "Bond",
+##                "photo": "http://geor"
+##            }
+##        ]
+##    }
+## }
+
+
+BEGIN   {
+
+	"cat /etc/passwd |wc -l" | getline tot_rec
+        FS=":"
+	printf "{\n" 
+	printf "\t\"user_list\": {\n"
+	printf "\t\t\"user_login\": [\n" 
+
+}
+{
+
+	if ( substr($NF, length($NF) - 7, length($NF) ) !~ /nologin/ ) {
+
+		printf "\t\t\t{\n"
+		printf "\t\t\t\t\"UID\": \"%s\",\n", ($3)
+		printf "\t\t\t\t\"GID\": \"%s\",\n", ($4)
+		printf "\t\t\t\t\"login_name\": \"%s\",\n", ($1)
+		printf "\t\t\t\t\"passwd\": \"%s\",\n", ($2)
+		printf "\t\t\t\t\"Rec_No\": \"%d\",\n", (NR)
+		printf "\t\t\t\t\"Shell\": \"%s\"\n", ($NF)
+		{ if (NR == tot_rec)
+			printf "\t\t\t}\n"
+		  else
+			printf "\t\t\t},\n"
+		};
+        };
+
+}
+
+END     {
+
+	printf "\t\t]\n" 
+	printf "\t}\n"
+	printf "}\n"
+
+}
+

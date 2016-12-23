@@ -1,0 +1,10 @@
+---
+# Check the Sudoers group at the sub directory level - /etc/sudoers.d
+#
+
+  - name         : List all files in /etc/sudoers.d
+#    shell        : "cat /etc/sudoers.d/*"
+    remote_user  : "ian.price"
+    command      : "/bin/egrep -ivn '#|Default|^$' /etc/sudoers.d/"
+    ignore_errors: True
+    register     : root_SudoDir

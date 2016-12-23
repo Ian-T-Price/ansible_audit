@@ -1,0 +1,15 @@
+HOSTVARS (ANSIBLE GATHERED, group_vars, host_vars) :
+
+{{ hostvars[inventory_hostname] | to_yaml }}
+
+Printout data structure:
+
+{{ vars|pprint }}
+
+PLAYBOOK VARS:
+
+{{ vars | to_yaml }}
+
+Group VARS:
+
+{{ group_vars | to_yaml }}

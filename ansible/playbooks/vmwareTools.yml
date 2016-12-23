@@ -1,0 +1,7 @@
+---
+# Run: ansible-playbook -s vmwareTools.yml --extra-vars hosts=<hosts names>
+
+- hosts: 	"{{ hosts }}"
+#  gather_facts: no
+  roles: 
+    - { role: peru.vmwaretools, when: ansible_virtualization_type == 'VMware' }

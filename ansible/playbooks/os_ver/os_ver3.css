@@ -1,0 +1,59 @@
+<style type='text/css'>
+.wrapper{
+   position: relative;
+   float: left;
+   left: 5%;
+   width: 90%;
+   margin-bottom: 10px;
+   background-color: #ccffcc
+}
+.left1{
+   position: relative;
+   float: left;
+   left: 5px;
+   width: 20%;
+   height: 20px;
+   background-color: #828282
+}
+.left2{
+   position: relative;
+   float: left;
+   left: 15px;
+   width: 20%;
+   height: 20px;
+   background-color: #828282
+}
+.left3{
+   position: relative;
+   float: left;
+   left: 25px;
+   width: 20%;
+   height: 20px;
+   background-color: #828282
+}
+.left4{
+   position: relative;
+   float: left;
+   left: 35px;
+   width: 20%;
+   height: 20px;
+   background-color: #828282
+}
+.left5{
+   position: relative;
+   float: left;
+   left: 45px;
+   width: 20%;
+
+   height: 20px;
+   background-color: #828282
+}
+body {
+   border-width: 0px;
+   padding: 0px;
+   margin: 0px;
+   font-size: 99%;
+   background-color: #fa9b65
+}
+</style>
+

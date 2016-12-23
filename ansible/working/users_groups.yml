@@ -1,0 +1,18 @@
+---
+#
+# Run: ansible-playbook -sv users_groups.yml -e "hosts=<hostnames/group>"
+#
+# Adds or deletes all users & groups contained in the var/users or vars/groups dirs
+#
+
+# First we gather facts on the hosts we want
+
+- name: "Add or delete Users and Groups"
+  hosts: "{{ hosts }}"
+  sudo: True
+  vars_files:
+    - roles/vars/users/test.yml
+#    - vars/users/ian_price.yml
+  roles:
+    - { role: users_and_groups , users_and_groups: "{{ users_and_groups }}" }
+#    - { role: users_and_groups }

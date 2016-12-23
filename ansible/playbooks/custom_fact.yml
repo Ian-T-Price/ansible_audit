@@ -1,0 +1,72 @@
+---
+#
+# This playbook adds many custom facts to servers
+#
+#
+
+- name: Add a custom fact
+  hosts: "{{ hosts }}"
+  gather_facts: False
+  
+  tasks:
+
+  - name: ensure custom facts directory exists
+    file: >
+      path=/etc/ansible/facts.d
+      recurse=yes
+      state=directory
+              
+  - name: install custom fact module for Application Versions - Apache
+    template: >
+      src=facts.j2/apache.fact.j2
+      dest=/etc/ansible/facts.d/apache.fact
+      mode=0755
+
+  - name: install custom fact module for Application Versions - MySQL
+    template: >
+      src=facts.j2/mysql.fact.j2
+      dest=/etc/ansible/facts.d/mysql.fact
+      mode=0755
+
+  - name: install custom fact module for Application Versions - PHP
+    template: >
+      src=facts.j2/php.fact.j2
+      dest=/etc/ansible/facts.d/php.fact
+      mode=0755
+
+  - name: install custom fact module for Root Access role - root_uid
+    template: >
+      src=facts.j2/root_uid.fact.j2
+      dest=/etc/ansible/facts.d/root_uid.fact
+      mode=0755
+      
+  - name: install custom fact module for Root Access role - root_sudoers
+    template: >
+      src=facts.j2/root_sudoers.fact.j2
+      dest=/etc/ansible/facts.d/root_sudoers.fact
+      mode=0755
+
+  - name: install custom fact module for Root Access role - root_sudodir
+    template: >
+      src=facts.j2/root_sudodir.fact.j2
+      dest=/etc/ansible/facts.d/root_sudodir.fact
+      mode=0755
+
+#  - name: install custom fact module for Root Access role - user_list
+#    template: >
+#      src=facts.j2/user_list.fact.j2
+#      dest=/etc/ansible/facts.d/user_list.fact
+#      mode=0755
+  - name: Copying as template don't work with a 'u\\\ error
+    copy:
+      src=facts.j2/user_list.fact.j2
+      dest=/etc/ansible/facts.d/user_list.fact
+      mode=0755
+
+  - file: path=/etc/ansible/user_list.awk state=absent
+  - file: path=/etc/ansible/facts.d/ul_awk.fact state=absent
+
+# This re-runs the setup module to allow the facts to be used during this play
+  - name: Reload ansible_local
+    setup: filter=ansible_local
+                              

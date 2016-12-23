@@ -1,0 +1,42 @@
+---
+#
+#
+#
+
+
+- name         : Check if user exists on systems
+  hosts        : '{{ hosts }}' 
+  gather_facts : no
+
+  vars:
+    user       : "{{ USER|default('ian.price') }}"
+    hosts      : "{{ HOSTS|default( all ) }}"
+
+  tasks :
+
+  - name     : Run getent on /etc/passwd to check for User
+    shell    : "getent passwd #{{ user }}"
+    register : UID
+
+#  - name     : Run getent group for root, wheel, adm, admin
+#    shell    : "getent group root wheel adm"
+#    register : root_Group
+
+#  - name     : List all action lines in /etc/sudoers
+#    shell    : "egrep -v '#|Default' /etc/sudoers|awk 'NF'"
+#    register : root_Sudoers
+
+#  - name     : List all action lines in /etc/sudoers.d
+#    shell    : "egrep . /etc/sudoers.d/*"
+#    register : root_SudoersD
+
+
+
+  - debug    : var=UID.stdout
+#  - debug    : var=root_Group.stdout
+#  - debug    : var=root_Sudoers.stdout
+#  - debug    : var=root_SudoersD.stdout
+#  - debug    : msg={{ root_UID.stdout }}
+#  - debug    : msg={{ root_Group.stdout }}
+  - debug    : msg={{ UID.stdout | to_json }}
+

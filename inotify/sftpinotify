@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+#       /etc/rc.d/init.d/sftpinotify
+#
+# description: This script is used to setup a watch on the /sftp directory \
+#              using inotifywait and fire a script any time a file is \
+#              write_closed
+#
+# chkconfig:345 50 50
+
+# Source function library.
+. /etc/init.d/functions
+
+# Define variables
+exec="/sftp/scripts/sftp_proc.sh"
+prog=sftp_proc.sh
+
+start() {
+        [ -x $exec ] || exit 5
+        echo -n "Starting sftpinotify: "
+            daemon $exec &
+        retval=$?
+        touch /var/lock/subsys/sftpinotify
+        echo
+        return $retval
+}       
+
+stop() {
+        echo -n "Shutting down sftpinotify: "
+            killproc $prog -TERM
+        retval=$?
+        echo
+        [ $retval -eq 0 ] && rm -f /var/lock/subsys/sftpinotify
+        return $retval
+}
+
+rh_status() {
+    # run checks to determine if the service is running - use generic status
+    status $prog
+}
+
+rh_status_q() {
+    rh_status >/dev/null 2>&1
+}
+
+case "$1" in
+    start)
+        # Only if not running,  start
+        rh_status_q && echo "Process already started" && exit 0
+        $1
+        ;;
+    stop)
+        # Only if service is running,stop
+        rh_status_q || exit 0
+        $1
+        ;;
+    status)
+        rh_status
+        ;;
+    restart)
+        stop
+        start
+        ;;
+   reload)
+        rh_status_q || exit 7
+        ;;
+    condrestart)
+        rh_status_q || exit 0
+        restart
+        ;;
+    *)
+        echo "Usage: <servicename> {start|stop|status|reload|restart[|probe]"
+        exit 1
+        ;;
+esac
+exit $?

@@ -1,0 +1,22 @@
+- hosts: "{{ hosts }}"
+  connection: local
+#  gather_facts: false
+
+  tasks:
+    - name: set_fact defined facts are not persistent across playbook runs
+      debug: msg="i will never have learned anything by this point (a_new_fact is not yet defined at this point during playbook run and never will be)"
+
+    - name: set a fact during one play
+      set_fact:
+          a_new_fact: "learning should be useful"
+
+- hosts: "{{ hosts }}"
+  tasks:
+    - name: and reference that fact during another play on that host
+      debug: msg="I agree that {{ a_new_fact }}"
+
+- hosts: "dfw2"
+#  remote_user: root
+  tasks:
+    - name: or reference that fact during another play from another host
+      debug: msg="I also agree that {{ hostvars['dfw2']['a_new_fact'] }}"

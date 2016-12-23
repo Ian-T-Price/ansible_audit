@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Privileged Access</title>
+    <link rel="stylesheet" type="text/css" href="grid.css">
+</head>
+
+  <body>
+
+    <h1>Audit of privileged access on ECP Linux systems</h1>
+    <h3>ANSIBLE Gathered =0= The host list is: "{{ privileged_hosts }}" =0= Date: {{ ansible_date_time.date }} =0= Time: {{ ansible_date_time.time }} </h3>
+    {% set grplst = privileged_hosts %}
+    {#{ grplst }#}
+
+<h2>Brief Explaination:</h2>
+<p><strong>UID=0:</strong> If a user has a UID of '0' then they have superuser priviledge.  Ensure only root has this UID</p>
+<p><strong>Sudoers File:</strong> Traditionally sudo (superuser) access was granted via entries in the /etc/sudoers file. Check to ensure this matches expectations.</p>
+<p><strong>Sudoers Directory:</strong> Newer linux systems also permit sudo access from descreate files in /etc/sudoers.d/ directory. Check to ensure this matches expectations.</p>
+<p><strong>User List:</strong> Users are added via a manual process (semi-automated with puppet), however puppet is not run in enforcing mode. Check to ensure this list matches expectations.</p>
+<p><strong>User List II:</strong> Some system accounts on Linux have a shell of /sbin/nologin - this prevents these accounts logging in on a terminal and hence are not listed here.</p>
+<p><strong>To Do List:</strong></p>
+<ul>
+<li>Multiline data sets kill facts reporting - convert all local facts gathering into python scripts- Only User List & UID=0 are complete to date</li>
+<li>Local facts are a kludge, especially as we are using python - write Ansible python module to replace local facts</li>
+<li><strong>RESOLVED</strong> Fix the requirement to add the hosts group into the template for each group reported on</li>
+<li>The server list is from manually generated files (ssh/config & /etc/ansible/hosts.  This needs to be replaced with an IPAM API lookup</li>
+</ul>
+<p><strong></strong></p>
+<!-- Variables for debugging only:
+    -->
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <h2>{#%- if hostvars[item].ansible_local is defined %#}The ansible local vars are: {#{ hostvars.ansible_local }#} {#% endif -%#}</h2>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p> Group_names:{{ group_names | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p> Group: {{ groups | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p> Vars: {{ vars | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p> Env: {{ environment | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p> HostVars: {{ hostvars | to_nice_json }} </p>
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p>WebServers =  </p>{{ groups["webservers"] | join(",") }}
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p>DBServers =  </p> {{ groups["dbservers"] | join(",") }}
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+    <p>AllServers =  </p> {#{ groups["allservers"] | join(",") }#}
+    <p>=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=0=</p>
+
+
+    <div class="CSSTable1" >
+                <table>
+                    <tr>
+                        <td>
+                            <p>Host Name</p>
+                            <p>Short Name</p>
+                            <p>IP4 Adrress</p>
+                            <p>IP6 Adrress</p>
+                            <p>Gateway</p>
+                            <p>Netmask</p>
+                            <p>MAC Address</p>
+                        </td>
+                        <td>
+                          <p>UID = 0</p>
+                        </td>
+                        <td>
+                            /etc/sudoers file
+                        </td>
+                        <td>
+                            /etc/sudoers.d/ directory
+                        </td>
+                        <td>
+                            User Counts
+                        </td>
+                        <td>
+                            <p>Standard Users</p>
+                            <p>(UID >= 500)</p>
+                        </td>
+                        <td>
+                            System Users
+                            <p>(UID < 500)</p>
+                        </td>
+                    </tr>
+                      {% for item in groups[privileged_hosts] %}
+                      {%- if hostvars[item].ansible_local is defined %}
+                      <tr>
+                          <td >
+                              <p><strong>{{ hostvars[item].ansible_hostname }}</strong></p>
+                              <p>{{ hostvars[item].inventory_hostname_short }}</p>
+                              <p><strong>{{ hostvars[item].ansible_default_ipv4.address }}</strong></p>
+                              <p>- {%- if hostvars[item].ansible_all_ipv6_addresses[0] is defined %} {{ hostvars[item].ansible_all_ipv6_addresses[0] }} {% endif -%}</p>
+                              <p>{{ hostvars[item].ansible_default_ipv4.gateway }}</p>
+                              <p>{{ hostvars[item].ansible_default_ipv4.netmask }}</p>
+                              <p>{{ hostvars[item].ansible_default_ipv4.macaddress }}</p>
+                          </td>
+                          <td>
+                              {#{ hostvars[item].ansible_local.root_uid.root_UID }#}
+                              {% set usrlst = hostvars[item].ansible_local.user_list.user_login %}
+                              {% set usrlst_len = usrlst|length %}
+                              {% for index in range(usrlst_len) %}
+                                  {% set uid = usrlst[index].pw_uid|int() %}
+
+                                  {% if (uid == 0) %}
+                                      {% if (usrlst[index].pw_name == 'root') %}
+                                          <p>{{ usrlst[index].pw_name }}, {{ usrlst[index].pw_passwd }}, {{ usrlst[index].pw_uid }}, {{ usrlst[index].pw_gid }}, {#{ usrlst[index].pw_shell }#}</p>
+                                      {% else %}
+                                          <p><strong>Alert!</strong> {{ usrlst[index].pw_name }}, {{ usrlst[index].pw_passwd }}, {{ usrlst[index].pw_uid }}, {{ usrlst[index].pw_gid }}, {#{ usrlst[index].pw_shell }#}</p>
+                                      {% endif %}
+                                  {% endif %}
+                              {% endfor %}
+                          </td>
+                          <td>
+                              {% set su_lst = hostvars[item].ansible_local.sudoers.py.sudoers_file %}
+                              {% set su_lst_len = su_lst|length %}
+                              {% for index in range(su_lst_len) %}
+                                  <p>{{ su_lst[index] }}</p>
+                              {% endfor %}
+
+
+                          </td>
+                          <td>
+                              {%- if hostvars[item].ansible_local.sudodir.py.sudodirs is defined %} {{ hostvars[item].ansible_local.sudodir.py.sudodirs }} {% endif -%}
+                          </td>
+                        <td>
+                              {% set std = {'value': 0} %}
+                              {% set sys = {'value': 0} %}
+                              <p><strong>Total: {{ usrlst_len }} </strong></p>
+                              {% for index in range(usrlst_len) %}
+                                {% set uid = usrlst[index].pw_uid|int() %}
+			      	{% if uid >= 500 %} {% if std.update({'value': (std.value + 1)}) %} {% endif %} {% endif %}
+			      	{% if uid < 500 %} {% if sys.update({'value': (sys.value + 1)}) %} {% endif %} {% endif %}
+			      {% endfor %}
+			      <p>Std: {{ std.value }} </p>
+			      <p>Sys: {{ sys.value }} </p>
+                        </td>
+                          <td>
+			      {% for index in range(usrlst_len) %}
+			        {% set uid = usrlst[index].pw_uid|int() %}
+				{#% if nologin != "/sbin/nologin" %#}
+				{% if uid >= 500 %}
+				    <p>{{ usrlst[index].pw_name }}, {{ usrlst[index].pw_passwd }}, {{ usrlst[index].pw_uid }}, {{ usrlst[index].pw_gid }}, {{ usrlst[index].pw_shell }}</p>
+				{% endif %}
+			      {#% if not loop.last %#}
+			      {#% endif %#}
+			      {% endfor %}
+                          </td>				
+                        <td>
+			      {% for index in range(usrlst_len) %}
+			        {% set uid = usrlst[index].pw_uid|int() %}
+				{% if uid < 500 %}
+				    <p>{{ usrlst[index].pw_name }}, {{ usrlst[index].pw_passwd }}, {{ usrlst[index].pw_uid }}, {{ usrlst[index].pw_gid }}, {{ usrlst[index].pw_shell }}</p>
+				{% endif %}
+			      {% endfor %}
+                        </td>                        
+                      </tr>
+                      {% endif -%}
+                    {% endfor %}
+                </table>
+
+{#{ hostvars[item].ansible_local.user_list.user_login[0] }#}
+{#{ hostvars[item].ansible_local.user_list.user_login[1] }#}
+{#{ hostvars[item].ansible_local.user_list.user_login[1].pw_name }#}
+{#{ hostvars.dlw1b.ansible_local.user_list | pprint }#}
+{#{ user_login | pprint }#}
+
+{#% for usr in hostvars[item].ansible_local.user_list['user_login'] %#}				
+{#{ hostvars[item].ansible_local.user_list.user_login[usr].pw_name }#}
+{#% endfor %#}
+                          
+            </div>
+  </body>
+</html>

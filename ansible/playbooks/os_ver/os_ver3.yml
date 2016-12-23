@@ -1,0 +1,32 @@
+---
+#
+# Run: ansible-playbook -sv playbooks/os_ver3.yml --extra-vars hosts=<hostnames/group>
+#
+# Lists some variables on a host using a template file os_ver3.j2
+#
+
+# First we gather facts on the hosts we want
+- hosts: "{{ hosts }}"
+# we have smart facts so we don't need this next line
+#  gather_facts: True
+
+# Now we rund the report creation part
+
+# This template section creates the file (dest:) on the hosts server
+
+- hosts: localhost
+  gather_facts: False
+
+  tasks:
+  - template:
+      src: 	../templates/os_ver_css3.j2
+      dest: 	/var/www/html/os_ver/os_ver3.htm
+    ignore_errors: True
+
+# This fetch section grabs the file created in the template section and writes it locally 
+
+#  - fetch:
+#      src: 	/tmp/os_ver
+#      dest: 	"../facts"
+#    ignore_errors: True
+

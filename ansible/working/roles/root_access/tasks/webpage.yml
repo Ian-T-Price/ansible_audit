@@ -1,0 +1,21 @@
+---
+#
+# Run: ansible-playbook -sv root_access.yml -e "hosts=<hostnames/group>"
+#
+# A role version of playbooks/os_ver.yml
+#
+# Lists priviledged access on a host using a template root_access_htm.j2
+#
+
+# This template section creates the file (dest:) on the ansible server
+
+- template:
+    src: 	root_access_htm.j2
+    dest: 	/var/www/html/root_access/index.html
+    owner: 'apache'
+    group: 'apache'
+    mode: 0755
+                
+#    ignore_errors: True
+
+

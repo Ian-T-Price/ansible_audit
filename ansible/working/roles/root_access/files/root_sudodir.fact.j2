@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Get a list of groups with priviledges in /etc/sudoers.d
+# Complicated by permissions on folder - have to be in it to see details
+
+ROOT_SUDODIR=`cd /etc/sudoers.d/ ; egrep -vn '#|^$|Default' /etc/sudoers.d/*`
+cat <<EOF
+{
+    "root_SudoDir" : "$ROOT_SUDODIR"
+}
+
+EOF

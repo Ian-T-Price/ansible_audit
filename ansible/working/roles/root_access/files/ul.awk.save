@@ -1,0 +1,27 @@
+## This awk file outputs the /etc/passwd file in json
+
+BEGIN   { 
+printf "{\n\""
+
+}
+
+{ 
+# Remove ECP PRTG Monitoring traffic & selct the time
+#    
+printf "\"%s\"\n",$0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+END     {
+
+}

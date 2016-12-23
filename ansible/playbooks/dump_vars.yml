@@ -1,0 +1,21 @@
+---
+#
+# Run ansible-playbook -s dump_vars.yml --extra-vars hosts=<hostnames>
+#
+# Lists all the variables on a host using a template file dump_vars.j2
+#
+- hosts: "{{ hosts }}"
+
+# This template section creates the file (dest:) on the hosts server
+
+  tasks:
+  - template:
+      src: 	../templates/dump_vars.j2
+      dest: 	/tmp/ansible_variables
+
+# This fetch section grabs the file created in the template section and writes it locally 
+
+  - fetch:
+      src: 	/tmp/ansible_variables
+      dest: 	"../facts/{{inventory_hostname}}_vars"
+

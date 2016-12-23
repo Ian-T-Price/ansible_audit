@@ -1,0 +1,5 @@
+---
+
+- name: "echo some text"
+  echo: name="I executed successfully" success=yes
+

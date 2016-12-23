@@ -1,0 +1,28 @@
+---
+users:
+#  - username: "selwyn.marock"
+#    name: "Selwyn Marock"
+#    groups: ['wheel']
+#    uid: 670518
+#    ssh_key:
+#      - "{{ lookup('file', 'selwyn.marock.keys') }}"
+#
+#  - username: "test.user"
+#    name: "Test User"
+#    groups: ['wheel']
+#    uid: 07213339
+#    ssh_key:
+#      - "{{ lookup('file', 'test.user.keys') }}"
+#   
+#  - username: "ian.price"
+#    name: "Ian T Price"
+#    groups: ['wheel', 'netsol']
+#    uid: 07012239
+#    ssh_key:
+#      - "{{ lookup('url', 'https://github.com/ian.price.keys') }}"
+#
+#users_deleted:
+#  - username: "test.user"
+#    name: "Test User"
+#    uid: 07213339
+#

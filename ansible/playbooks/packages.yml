@@ -1,0 +1,36 @@
+---
+# Script to add the packages we require
+# 
+#
+
+- name         : Set default packages
+  hosts        : "{{ hosts }}" 
+  
+  tasks:
+
+# Remove the bad packages
+  - action     : "{{ ansible_pkg_mgr }} name=telnet           state=absent"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=wget           state=absent"
+    ignore_errors: True
+
+# Install good packages
+#  - name       : Install packages
+  - action       : "{{ ansible_pkg_mgr }} name=nmap           state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=nano           state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=tree           state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=lsof           state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=rsync          state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=sysstat        state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=atop           state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=htop           state=present"
+    ignore_errors: True
+  - action       : "{{ ansible_pkg_mgr }} name=open-vm-tools  state=present"
+    ignore_errors: True

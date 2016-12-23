@@ -1,0 +1,16 @@
+---
+#
+# Run: ansible-playbook -sv gather_facts.yml -e "hosts=<hostnames/group>"
+#
+# Just gathers facts for other playbooks
+#
+
+# First we gather facts on the hosts we want
+- hosts: "{{ hosts }}"
+  gather_facts: True
+
+# Now we run the report creation part
+
+#  roles: 
+#    - gather_facts
+#    - os_apps_vers

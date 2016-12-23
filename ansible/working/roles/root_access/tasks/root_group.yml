@@ -1,0 +1,8 @@
+---
+# Check for membership of root priviledge groups
+#
+  - name         : Run getent group for root, wheel, adm, admin
+#    shell        : "getent group root wheel adm"
+    command      : 'egrep -v "#|^$|Default" /etc/sudoers'
+    ignore_errors: True
+    register     : root_Group

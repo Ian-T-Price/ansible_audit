@@ -1,0 +1,19 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+  - person: Jane Jolie
+  - filename: ../templates/v1.j2
+#  vars_files:
+#  - vars.yml
+  tasks:
+  - name: Quien soy?
+    action: command /usr/bin/whoami
+    register: myname
+  - name: Run jpprog.sh
+    action: command ./jpprog.sh
+    register: v
+    ignore_errors: true
+  
+  - name: Populate template
+    action: template src={{filename}} dest=/tmp/out

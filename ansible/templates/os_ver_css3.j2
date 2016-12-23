@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RHEL OS Versions</title>
+    <link rel="stylesheet" type="text/css" href="os_ver3.css">
+</head>
+
+  <body>
+
+    <h1>OS_VERSION (ANSIBLE GATHERED) :</h1>
+
+<div class="wrapper">
+	     <div class="left1">
+               IP Adrress
+	     </div>
+	     <div class="left2">
+               Host Name
+	     </div>
+	     <div class="left3">
+               Distribution	
+	     </div>
+	     <div class="left4">
+                Release
+	     </div>
+	     <div class="left5">
+                Version
+	     </div>
+	 </div> 
+
+        {% for item in groups['drecf'] %}
+          {% if hostvars[item].ansible_default_ipv4.address is defined -%}
+
+            <div class="wrapper">
+	      <div class="left1">
+                {{ inventory_hostname }} {{ hostvars[item].ansible_default_ipv4.address }}	    
+	      </div>
+	      <div class="left2">
+                {{ hostvars[item].ansible_hostname }}	    
+	      </div>
+	      <div class="left3">
+                {{ hostvars[item].ansible_distribution }}	    
+	      </div>
+	      <div class="left4">
+                {{ hostvars[item].ansible_distribution_release }}	    
+	      </div>
+	      <div class="left5">
+                {{ hostvars[item].ansible_distribution_version }}	    
+	      </div>
+	    </div> 
+          {% endif -%}
+        {% endfor %}
+  
+        {# {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }} #}
+        {# {{ ansible_hostname }} {{ ansible_distribution }} {{ ansible_distribution_release }} {{ ansible_distribution_version }} {{ ansible_eth0['ipv4']['address'] }} {{ ansible_default_ipv4['address'] }} #} 
+
+    {% for item in groups['webservers'] %}
+      {#	{{ hostvars[item]['ansible_facts']['ansible_all_ipv4_addresses'] }} #}
+    {% endfor %}
+
+    {% for group in group_names %}
+	{{ group }}
+    {% endfor %}
+
+    <h3># Auto-generated /etc/hosts </h3>
+    {% for k,v in hostvars.iteritems() %}
+      {# {{v['ansible_eth0']['ipv4']['address']}} {{ k }} #}
+      {# {{ v.ansible_default_ipv4.address }} {{ k }} #}
+    {% endfor %}
+
+    <h3># CSV of server names </h3>
+
+    <p>WebServers =  </p>{{ groups["webservers"] | join(",") }}
+
+    <p>DBServers =  </p> {{ groups["dbservers"] | join(",") }}
+
+    {# AllServers = {{ groups[ {{ group }} ] | join(",") }} #}
+
+  </body>
+  
+</html>

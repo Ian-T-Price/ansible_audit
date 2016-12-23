@@ -1,0 +1,8 @@
+---
+# Check the Sudoers group at the top level directory - /etc/sudoers
+#
+
+  - name         : List all action lines in /etc/sudoers
+    command        : "egrep -v '#|Default|^$' /etc/sudoers"
+    ignore_errors: True
+    register     : root_Sudoers

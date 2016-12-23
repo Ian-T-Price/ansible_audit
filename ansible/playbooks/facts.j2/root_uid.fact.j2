@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Get a list of users with UID of 0 = root priviledges
+
+ROOT_UID=`getent passwd 0`
+cat <<EOF
+{
+    "root_UID" : "$ROOT_UID"
+}
+
+EOF

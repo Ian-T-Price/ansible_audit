@@ -1,0 +1,108 @@
+---
+#
+# 
+#
+
+- name         : Set default firewall rules
+  hosts        : "{{ hosts }}" 
+#  gather_facts : no
+
+  vars:
+#    hostsdb    : "{{ hostsdb|default('lteuatdb') }}"
+#    hostsweb   : "{{ hostsweb|default('lteuatweb') }}"
+#    hostsdb    : "{{ hostsdb }}"
+#    hostsweb   : "{{ hostsweb }}"
+
+  tasks:
+# Have to ensure firewall is started to re-configure it
+  - service    : name=firewalld state=started 
+
+  - name       : Install PostFix
+    yum        : name=postfix state=present  
+    notify:
+    - restart postfix
+
+# SSH
+  - firewalld  : zone=public service=ssh permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# SMTP
+#  - firewalld  : zone=public service=postfix permanent=true state=enabled # invalid service
+  - firewalld  : zone=public port=25/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# HTTP    
+  - firewalld  : zone=public service=http permanent=true state=enabled    
+    notify:
+    - restart firewalld
+    
+# HTTPS
+  - firewalld  : zone=public service=https permanent=true state=enabled    
+    notify:
+    - restart firewalld
+
+# MySQL
+  - firewalld  : zone=public service=mysql permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# Redis Port
+  - firewalld  : zone=public port=6379/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# Puppet Port
+  - firewalld  : zone=public port=8140/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# Galera Replication traffic
+  - firewalld  : zone=public port=4567/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# Galera Incremental State Transfer
+  - firewalld  : zone=public port=4568/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# Galera State Snapshot Transfer
+  - firewalld  : zone=public port=4444/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+# Galera Heath Check Port
+  - firewalld  : zone=public port=9220/tcp permanent=true state=enabled
+    notify:
+    - restart firewalld
+
+  - selinux    : policy=targeted state=permissive    # enforcing
+
+# Check RHEL subcription - command fails if not subscribed
+#  - name       : Check RHEL subcription ID
+#    command    : "subscription-manager identity"
+
+# Remove the bad packages
+  - name       : remove telnet package
+    yum        : name=telnet state=absent
+
+# Install good packages
+#  - name       : Install packages
+  - yum        : name=nmap          state=present  
+  - yum        : name=tree          state=present  
+  - yum        : name=lsof          state=present  
+  - yum        : name=rsync         state=present  
+  - yum        : name=sysstat       state=present  
+  - yum        : name=atop          state=present  
+  - yum        : name=htop          state=present  
+  - yum        : name=open-vm-tools state=present
+
+# Set things in motion
+  handlers:
+    - name     : restart firewalld
+      service  : name=firewalld state=restarted
+    - name     : restart postfix
+      service  : name=postfix state=restarted
+

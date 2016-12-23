@@ -1,0 +1,11 @@
+---
+
+users_and_groups_defaults:
+  shell: /bin/bash
+  home_prefix: /home
+
+users_and_groups:
+  users: [ test ]
+  users_removed: []
+  groups: []
+  groups_removed: []

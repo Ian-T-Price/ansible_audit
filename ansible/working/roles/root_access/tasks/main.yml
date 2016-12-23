@@ -1,0 +1,26 @@
+---
+#
+# Run: ansible-playbook -sv root_access.yml -e "hosts=<hostnames/group>"
+#
+# A role version of playbooksroot_access.yml
+#
+
+#- include:
+#    root_uid.yml
+
+#- include:
+#    root_group.yml
+
+#- include:
+#    root_sudoers_top.yml
+
+#- include:
+#    root_sudoers_sub.yml
+
+- include:
+    upload_css.yml
+
+- include:
+    webpage.yml
+
+

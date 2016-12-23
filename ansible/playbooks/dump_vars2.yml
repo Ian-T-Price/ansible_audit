@@ -1,0 +1,47 @@
+---
+#
+# Run ansible-playbook -s dump_vars2.yml --extra-vars hosts=<hostnames>
+#
+# Lists all the variables on a host using a template file dump_vars.j2
+#
+- hosts: "{{ hosts }}"
+
+# This template section creates the file (dest:) on the hosts server
+
+#  tasks:
+#  - template:
+#      src: 	../templates/dump_vars.j2
+#      dest: 	/tmp/ansible_variables
+
+# This fetch section grabs the file created in the template section and writes it locally 
+
+#  - fetch:
+#      src: 	/tmp/ansible_variables
+#      dest: 	"../facts/{{inventory_hostname}}_vars"
+
+# Example that prints the loopback address and gateway for each host
+
+  tasks:
+
+  - debug: msg="System {{ inventory_hostname }} has uuid {{ ansible_product_uuid }}"
+
+  - debug: msg="System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gateway }}"
+    when: ansible_default_ipv4.gateway is defined
+
+  - shell: /usr/bin/uptime
+    register: result
+
+  - debug: var=result
+
+  - name: Display all variables/facts known for a host
+    debug: var=hostvars[inventory_hostname]
+
+  - debug: msg="System {{ inventory_hostname }} has short name of {{ inventory_hostname_short }}"
+
+  - template:
+      src: 	../templates/dump_vars2.j2
+      dest: 	/tmp/ansible_variables
+
+  - fetch:
+      src: 	/tmp/ansible_variables
+      dest: 	"../facts/{{inventory_hostname}}_vars"

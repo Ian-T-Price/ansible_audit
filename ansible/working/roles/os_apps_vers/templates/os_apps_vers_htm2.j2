@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>OS & Apps Versions  </title>
+    <link rel="stylesheet" type="text/css" href="os_apps_vers.css">
+</head>
+
+  <body>
+
+    <h1>OS & Apps Versions (ANSIBLE Gathered) :</h1>
+    <h2>The host list is: "{{ oav_hosts }}" </h2>
+    {#% set my_hosts = {{ oav_hosts }} %#}
+    <h2>The host list is: groups ['my_hosts'] </h2>
+
+    <h3>Date: {{ ansible_date_time.date }} Time: {{ ansible_date_time.time }} </h3> 
+
+
+
+<!--
+
+-->
+    <p> Group_names: {{ group_names | to_nice_json }} </p>
+    <p>       Group: {{ groups | to_nice_json }} </p>
+    <p>        Vars: {{ vars | to_nice_json }} </p>
+    <p>         Env: {{ environment | to_nice_json }} </p>
+    <p>    HostVars: {{ hostvars | to_nice_json }} </p>
+
+
+	<div class="CSSTable1" >
+                <table >
+                    <tr>
+                        <td>
+                            <p>Host Name</p>
+                            <p>Short Name</p>
+			    <p>IP4 Adrress</p>
+			    <p>IP6 Adrress</p>			    
+			    <p>Gateway</p>
+                            <p>Netmask</p>
+                            <p>MAC Address</p>
+                        </td>
+                        <td>
+                            <p>CPU HW</p>
+                            <p>Cores</p>
+                            <p>Count of CPUs</p>
+                            <p>Threads</p>
+                            <p>vCPUs</p>
+                        </td>                        
+                        <td>
+                            <p>OS Details</p>
+                            <p>Distribution & Ver.</p>
+                            <p>Release</p>
+                            <p>Kernel</p>
+                        </td>
+                        <td>
+                            <p>Applications</p>                 
+                        </td>
+                        <td>
+                            <p>VMware Details</p>
+                            <p>Name</p>
+                            <p>Serial</p>
+                            <p>UUID</p>
+                            <p>Version</p>
+                        </td>
+                    </tr>
+                    {% for item in groups['lteuatall'] %}
+                      {#%- if hostvars[item].ansible_default_ipv4.address is defined %#}
+                      <tr>
+                          <td >
+                              <p><strong>{{ hostvars[item].ansible_hostname }}</strong></p>
+                              <p>{{ hostvars[item].inventory_hostname_short }}</p>
+                              <p><strong>{{ hostvars[item].ansible_default_ipv4.address }}</strong></p>
+                              <p>{{ hostvars[item].ansible_all_ipv6_addresses[0] }}</p>
+                              <p>{{ hostvars[item].ansible_default_ipv4.gateway }}</p>
+                              <p>{{ hostvars[item].ansible_default_ipv4.netmask }}</p>
+                              <p>{{ hostvars[item].ansible_default_ipv4.macaddress }}</p>                              
+                          </td>
+                          <td>
+                              <p>{{ hostvars[item].ansible_processor[1] }}</p>
+                              <p>{{ hostvars[item].ansible_processor_cores }}</p>
+                              <p>{{ hostvars[item].ansible_processor_count }}</p>                              
+                              <p>{{ hostvars[item].ansible_processor_threads_per_core }}</p>
+                              <p>{{ hostvars[item].ansible_processor_vcpus }}</p>                                                                                          
+                          </td>
+                          <td>
+                              <p>{{ hostvars[item].ansible_distribution }} {{ hostvars[item].ansible_distribution_version }}</p>
+                              <p>{{ hostvars[item].ansible_distribution_release }}</p>
+                              <p>{{ hostvars[item].ansible_kernel }}</p>
+                          </td>
+                          <td>
+                              {%- if hostvars[item].ansible_local is defined %}
+                                  <p>Apache: {{ hostvars[item].ansible_local.apache.apache_ver }}</p>
+                                  <p>SQL DB: {{ hostvars[item].ansible_local.mysql.mysql_ver }}</p>
+                                  <p>   PHP: {{ hostvars[item].ansible_local.php.php_ver }}</p>
+                                  <p>Python: {{ hostvars[item].ansible_python_version }}</p>                              
+                              {% endif -%}
+                          </td>
+                          <td>
+                              <p>{{ hostvars[item].ansible_product_name }}</p>
+                              <p>{{ hostvars[item].ansible_product_serial }}</p>
+                              <p>{{ hostvars[item].ansible_product_uuid }}</p>
+                              <p>{{ hostvars[item].ansible_product_version }}</p>
+                          </td>
+                          <td>
+                              
+                          </td>
+                          <td>
+                              
+                          </td>       
+                          <td>
+                              
+                          </td>                                                   
+                      </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+    <p>WebServers =  </p>{{ groups["webservers"] | join(",") }}
+
+    <p>DBServers =  </p> {{ groups["dbservers"] | join(",") }}
+
+    <p>AllServers =  </p> {{ groups["allservers"] | join(",") }}
+
+    <p>LTEUATall =  </p> {{ groups["lteuatall"] | join(",") }}
+
+  </body>
+</html>

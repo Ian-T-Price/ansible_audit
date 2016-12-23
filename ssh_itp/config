@@ -1,0 +1,1008 @@
+######################################
+## Hosts file for ECP Linux servers ##
+######################################
+
+## We are moving towards a live-live environment   ##
+## between Reading and Croydon. There will be live ##
+## production servers at both sites and we will be ##
+## switching between them at will.                 ##
+## ReadinG - GREEN Live site - postfix b eg pcm1b  ##
+## Croydon - BLUE  Live site - postfix g eg pcm1g  ##
+  
+
+#Host                    localhost
+#Causes ssh to hang
+####			===========
+#HostName                127.0.0.1
+#User                    iprice
+#ServerAliveInterval 30
+#ServerAliveCountMax 120
+
+###################
+## General Hosts ##
+###################
+
+Host                    gith
+####                    ===========
+#Hostname               GitHub
+Hostname                github.com
+User                    git
+ServerAliveInterval     30
+ServerAliveCountMax     120
+IdentitiesOnly		yes
+IdentityFile            ~/.ssh/id_ed25519
+
+Host		 	pcm1g
+####			===============
+#Hostname	 	Prod-ConfMan-01g 
+Hostname	 	10.175.17.60 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pcm1b 
+####			=============
+#Hostname	 	Prod-ConfMan-01b
+Hostname	 	10.175.145.33 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pcm2b 
+####			=============
+#Hostname	 	Prod-ConfMan-01b
+Hostname	 	10.175.145.34 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pcm3b 
+####			=============
+#Hostname	 	Prod-ConfMan-03b
+Hostname	 	10.175.145.35 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	e1u1 
+####			===========
+#Hostname	 	ecp-01-ubu1 
+Hostname	 	10.169.4.97 
+User 			iprice
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+###################
+##  K8  Servers  ##
+##  AIX server   ##
+###################
+
+Host		 	k8q1 
+####			=================
+#Hostname	 	K8-QA-01 
+Hostname	 	10.175.30.5 
+User 			sftp
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+IdentityFile            /home/sftp/.ssh/sftp_rsa
+
+Host		 	k8q2 
+####			=================
+#Hostname	 	K8-QA-02 
+Hostname	 	10.175.158.5 
+User 			sftp
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+IdentityFile            /home/sftp/.ssh/sftp_rsa
+
+Host		 	k8l1
+####			=================
+#Hostname	 	K8-PROD-01 
+Hostname	 	10.169.101.1 
+User 			sftp
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+IdentityFile            /home/sftp/.ssh/sftp_rsa
+
+Host		 	k8d1
+####			=================
+#Hostname	 	K8-DEV-01 
+Hostname	 	10.169.101.4 
+User 			sftp
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+IdentityFile            /home/sftp/.ssh/sftp_rsa
+
+
+#####################
+## EKL Log Servers ##
+## Sys Monitoring  ##
+#####################
+
+Host		 	elk1g 
+####			=================
+#Hostname	 	ECP-TVHC2-LOG01 
+Hostname	 	10.175.17.131 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	elk1b 
+####			=================
+#Hostname	 	ECP-CROY-LOG01 
+Hostname	 	10.175.145.131 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+################################
+## User Acceptance Test hosts ## 
+################################
+
+Host		 	uat1
+####			=====
+#Hostname	 	UAT-1 
+Hostname	 	10.175.17.100 
+User 		 	ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host			uad1 
+####			========
+#Hostname		UAT-DB-1 
+Hostname	 	10.175.17.101 
+User 		 	ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	uaw1 
+####			=========
+#Hostname	 	UAT-WEB-1 
+Hostname	 	10.175.17.27 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#############################
+## DR User Acceptance Test ## 
+#############################
+
+Host			dud1 
+####			========
+#Hostname		DR-UAT-DB-01 
+Hostname	 	10.175.146.101 
+User 		 	ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	duw1 
+####			=========
+#Hostname	 	DR-UAT-WEB-01 
+Hostname	 	10.175.145.101 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#############################
+## Physical Load Balancers ##
+#############################
+
+Host		 	slb1
+####			==========
+#Hostname	 	LB-1 
+Hostname	 	10.175.16.20 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	slb2
+####			==========
+#Hostname	 	LB-2 
+Hostname	 	10.175.16.21 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#####################
+## Physical StackA ##
+## Retired         ##
+#####################
+
+Host		 	saw1 
+####			=============
+#Hostname		StackA-WEB-01 
+Hostname		10.175.17.20 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sad1 
+####			===========
+#Hostname	 	StackA-DB-1 
+Hostname	 	10.175.18.20 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#####################
+## Physical StackB ##
+## Retired         ##
+#####################
+
+Host		 	sbd1 
+####			===========
+#Hostname	 	StackB-DB-1 
+Hostname	 	10.175.18.221 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sbd2 
+####			===========
+#Hostname	 	StackB-DB-2 
+Hostname	 	10.175.18.222 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sbw1 
+####			=============
+#Hostname		StackB-WEB-01 
+Hostname		10.175.17.222 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+#2015-02-04 not currently accessible
+
+Host			sbw2 
+####			=============
+#Hostname		StackB-WEB-02 
+Hostname	 	10.175.17.223 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#####################
+## Physical StackE ##
+## Production      ##
+#####################
+
+Host		 	sew1 
+####			=============
+#Hostname	 	StackE-WEB-01 
+Hostname	 	10.175.17.24 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sew2 
+####			=============
+#Hostname	 	StackE-WEB-02 
+Hostname	 	10.175.17.25 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sew3 
+####			=============
+#Hostname	 	StackE-WEB-03 
+Hostname	 	10.175.17.26 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sed1 
+####			=============
+#Hostname	 	StackE-DB-01 
+Hostname	 	10.175.18.23 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	sed2
+####			=============
+#Hostname	 	StackE-DB-02 
+Hostname	 	10.175.18.24 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	ses1
+####			==========
+#Hostname	 	StackE-SOP 
+Hostname	 	10.175.18.50 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#######################
+## VM Load Balancers ##
+## GREEN Live        ##
+#######################
+# plb2g - 10.175.16.42 - not built
+
+Host		 	plb1g
+####			==========
+#Hostname	 	Prod-LB01 
+Hostname	 	10.175.16.41 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+#######################
+## VM Load Balancers ##
+## BLUE Live         ##
+#######################
+
+Host		 	plbw1b
+####			==========
+#Hostname	 	Prod-LBW-01b 
+Hostname	 	10.175.144.61 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plbw2b
+####			==========
+#Hostname	 	Prod-LBW-02b 
+Hostname	 	10.175.144.62 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plbd1b
+####			==========
+#Hostname	 	Prod-LBD-01b 
+Hostname	 	10.175.146.71
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plbd2b
+####			==========
+#Hostname	 	Prod-LBD-01b 
+Hostname	 	10.175.146.72
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+################
+## VM StackA  ##
+## Production ##
+################
+
+Host		 	pad1 
+####			=================
+#Hostname	 	Prod-StackA-DB-01 
+Hostname	 	10.175.18.28 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	paw1 
+####			==================
+#Hostname	 	Prod-StackA-WEB-01 
+Hostname	 	10.175.17.51 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+################
+## VM StackB  ##
+## Production ##
+################
+
+Host		 	pbd1 
+####			=================
+#Hostname	 	Prod-StackA-DB-01 
+Hostname	 	10.175.18.29 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pbd2 
+####			=================
+#Hostname	 	Prod-StackA-DB-02 
+Hostname	 	10.175.18.30
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pbw1 
+####			==================
+#Hostname	 	Prod-StackB-WEB-01 
+Hostname	 	10.175.17.52 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pbw2
+####			==================
+#Hostname	 	Prod-StackB-WEB-02 
+Hostname	 	10.175.17.53
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+################
+## VM StackC  ##
+## Production ##
+################
+
+Host		 	pcd1 
+####			============
+#Hostname	 	Prod-StackC-DB-01 
+Hostname	 	10.175.18.26 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pcw1 
+####			=============
+#Hostname	 	Prod-StackC-WEB-01 
+Hostname	 	10.175.17.28 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+###############
+## VM StackE ##
+## TEST      ##
+###############
+
+Host		 	pew1 
+####			==================
+#Hostname	 	Prod-StackE-WEB-01 
+Hostname	 	10.175.17.55 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pew2
+####			==================
+#Hostname	 	Prod-StackE-WEB-02 
+Hostname	 	10.175.17.56
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pew3
+####			==================
+#Hostname	 	Prod-StackE-WEB-03 
+Hostname	 	10.175.17.57
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	ped1
+####			==================
+#Hostname	 	Prod-StackE-DB-01 
+Hostname	 	10.175.18.32
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	ped2
+####			==================
+#Hostname	 	Prod-StackE-DB-02 
+Hostname	 	10.175.18.33
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pes1
+####			==========
+#Hostname	 	Prod-StackE-SOP 
+Hostname	 	10.175.18.52 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+################
+## VM StackF  ##
+## Production ##
+################
+
+Host		 	pfw1 
+####			==================
+#Hostname	 	Prod-StackF-WEB-01 
+Hostname	 	10.175.17.41 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pfw2
+####			==================
+#Hostname	 	Prod-StackF-WEB-02 
+Hostname	 	10.175.17.42
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pfd1
+####			==================
+#Hostname	 	Prod-StackF-DB-01 
+Hostname	 	10.175.18.41
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pfd2
+####			==================
+#Hostname	 	Prod-StackF-DB-02 
+Hostname	 	10.175.18.42
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pfs1
+####			==========
+#Hostname	 	Prod-StackF-SOP 
+Hostname	 	10.175.17.40 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#############################
+#***************************#
+#* Prod Croydon BLUE LIVE **#
+#***************************#
+#############################
+
+
+#######################
+## Prod-LTE          ## 
+## Croydon BLUE LIVE ##
+####################### 
+
+Host		 	plw1b
+####			==================
+#Hostname	 	Prod-LTE-Web-01b 
+Hostname	 	10.175.145.141
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw2b
+####			==================
+#Hostname	 	Prod-LTE-Web-02b 
+Hostname	 	10.175.145.142
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw3b
+####			==================
+#Hostname	 	Prod-LTE-Web-03b 
+Hostname	 	10.175.145.143
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw4b
+####			==================
+#Hostname	 	Prod-LTE-Web-04b 
+Hostname	 	10.175.145.144
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw51b
+####			==================
+#Hostname	 	Prod-LTE-Web-51b 
+Hostname	 	10.175.145.151 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw52b
+####			==================
+#Hostname	 	Prod-LTE-Web-52b 
+Hostname	 	10.175.145.152
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw53b	
+####			==================
+#Hostname	 	Prod-LTE-Web-53b 
+Hostname	 	10.175.145.153
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw54b	
+####			==================
+#Hostname	 	Prod-LTE-Web-54b 
+Hostname	 	10.175.145.154
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	plw59b	
+####			==================
+#Hostname	 	Prod-LTE-Web-59b 
+Hostname	 	10.175.145.159
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld1b
+####			==================
+#Hostname	 	Prod-LTE-DB-01b 
+Hostname	 	10.175.146.141
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld2b
+####			==================
+#Hostname	 	Prod-LTE-DB-02b 
+Hostname	 	10.175.146.142
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld3b
+####			==================
+#Hostname	 	Prod-LTE-DB-03b 
+Hostname	 	10.175.146.143
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld4b
+####			==================
+#Hostname	 	Prod-LTE-DB-04b 
+Hostname	 	10.175.146.144
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld51b
+####			==================
+#Hostname	 	Prod-LTE-DB-51b 
+Hostname	 	10.175.146.151
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld52b
+####			==================
+#Hostname	 	Prod-LTE-DB-52b 
+Hostname	 	10.175.146.152
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	pld53b
+####			==================
+#Hostname	 	Prod-LTE-DB-53b 
+Hostname	 	10.175.146.153
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#######################
+## Migration Server  ##
+## BLUE Live         ##
+#######################
+
+Host		 	pld10b
+####			==========
+#Hostname	 	Prod-LTE-DB-10b 
+Hostname	 	10.175.146.150 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+
+#################
+#***************#
+#* DR Croydon **#
+#***************#
+#################
+
+
+################
+## VM StackA  ##
+## DR Croydon ##
+################
+
+Host		 	daw1 
+####			==================
+#Hostname	 	DR-StackA-WEB-01 
+Hostname	 	10.175.145.21 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dad1
+####			==================
+#Hostname	 	DR-StackA-DB-01 
+Hostname	 	10.175.146.21
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+################
+## VM StackB  ##
+## DR Croydon ##
+################
+
+Host		 	dbw1 
+####			==================
+#Hostname	 	DR-StackB-WEB-01 
+Hostname	 	10.175.145.22 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dbw2
+####			==================
+#Hostname	 	DR-StackB-WEB-02 
+Hostname	 	10.175.145.23
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dbd1
+####			==================
+#Hostname	 	DR-StackB-DB-01 
+Hostname	 	10.175.146.22
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dbd2
+####			==================
+#Hostname	 	DR-StackB-DB-02 
+Hostname	 	10.175.146.23
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+################
+## VM StackC  ##
+## DR Croydon ##
+################
+
+Host		 	dcw1 
+####			==================
+#Hostname	 	DR-StackC-WEB-01 
+Hostname	 	10.175.145.24 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dcd1
+####			==================
+#Hostname	 	DR-StackC-DB-01 
+Hostname	 	10.175.146.24
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#################
+# D E L E T E D #
+## VM StackE   ##
+## DR Croydon  ##
+# D E L E T E D #
+#################
+
+
+################
+## VM StackF  ##
+## DR Croydon ##
+################
+
+Host		 	dfw1 
+####			==================
+#Hostname	 	DR-StackF-WEB-01 
+Hostname	 	10.175.145.41 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dfw2
+####			==================
+#Hostname	 	DR-StackF-WEB-02 
+Hostname	 	10.175.145.42
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dfd1
+####			==================
+#Hostname	 	DR-StackF-DB-01 
+Hostname	 	10.175.146.41
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dfd2
+####			==================
+#Hostname	 	DR-StackF-DB-02 
+Hostname	 	10.175.146.42
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dfs1
+####			==========
+#Hostname	 	DR-StackF-SOP 
+Hostname	 	10.175.145.40 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+
+#################
+## DR-LTE-UAT  ## 
+## UAT Croydon ##
+#################
+
+Host		 	dls1b
+####			==========
+#Hostname	 	DR-LTE-SOP 
+Hostname	 	10.175.145.60 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlw1b
+####			==================
+#Hostname	 	DR-LTE-Web-01b 
+Hostname	 	10.175.145.61 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlw2b
+####			==================
+#Hostname	 	DR-LTE-Web-02b 
+Hostname	 	10.175.145.62
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlw3b
+####			==================
+#Hostname	 	DR-LTE-Web-03b 
+Hostname	 	10.175.145.63
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlw51b
+####			==================
+#Hostname	 	DR-LTE-Web-51b 
+Hostname	 	10.175.145.51 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlw52b
+####			==================
+#Hostname	 	DR-LTE-Web-52b 
+Hostname	 	10.175.145.52
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlw53b
+####			==================
+#Hostname	 	DR-LTE-Web-53b 
+Hostname	 	10.175.145.53
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dld1b
+####			==================
+#Hostname	 	DR-LTE-DB-01b 
+Hostname	 	10.175.146.61
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dld2b
+####			==================
+#Hostname	 	DR-LTE-DB-02b 
+Hostname	 	10.175.146.62
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dld3b
+####			==================
+#Hostname	 	DR-LTE-DB-03b 
+Hostname	 	10.175.146.63
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dld51b
+####			==================
+#Hostname	 	DR-LTE-DB-51b 
+Hostname	 	10.175.146.51
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dld52b
+####			==================
+#Hostname	 	DR-LTE-DB-52b 
+Hostname	 	10.175.146.52
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dld53b
+####			==================
+#Hostname	 	DR-LTE-DB-53b 
+Hostname	 	10.175.146.53
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+
+#######################
+## DR Load Balancers ##
+#######################
+
+Host		 	dlbw1
+####			==========
+#Hostname	 	DR-LBW-01 
+Hostname	 	10.175.144.41 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlbw2
+####			==========
+#Hostname	 	DR-LBW-02 
+Hostname	 	10.175.144.42 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlbd1b
+####			==========
+#Hostname	 	DR-LBD-01b 
+Hostname	 	10.175.146.58 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+Host		 	dlbd2b
+####			==========
+#Hostname	 	DR-LBD-02b 
+Hostname	 	10.175.146.59 
+User 			ian.price
+ServerAliveInterval 	30
+ServerAliveCountMax 	120
+
+#External
+#########
+#[plbe]
+#plbe[1:2]
+#[dlbe]
+#dlbe[1:2]
